@@ -13,7 +13,7 @@ from telegram.ext import (
 # ==========================
 # GANTIKAN DENGAN TOKEN BOT ANDA
 # ==========================
-TOKEN = "8859588533:AAEXCj0kTFE5q1uCKXgjsYTAberxUkt0YIk"
+TOKEN = os.getenv("BOT_TOKEN")
 
 keyboard = ReplyKeyboardMarkup(
     [["📖 Cara Guna", "ℹ️ Tentang KoDIT"]],
