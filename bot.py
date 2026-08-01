@@ -1,6 +1,7 @@
-\
 import os
 import re
+import threading
+from flask import Flask
 from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import (
     Application,
@@ -10,9 +11,18 @@ from telegram.ext import (
     filters,
 )
 
-# ==========================
-# GANTIKAN DENGAN TOKEN BOT ANDA
-# ==========================
+# 1. Mini Web Server (Utk Hosting Cloud)
+web_app = Flask(__name__)
+
+@web_app.route('/')
+def home():
+    return "🤖 KoDIT Bot is Live!"
+
+def run_flask():
+    port = int(os.environ.get("PORT", 8080))
+    web_app.run(host='0.0.0.0', port=port)
+
+# 2. Token Bot
 TOKEN = "8859588533:AAEXCj0kTFE5q1uCKXgjsYTAberxUkt0YIk"
 
 keyboard = ReplyKeyboardMarkup(
@@ -91,9 +101,16 @@ async def handle(update: Update, context: ContextTypes.DEFAULT_TYPE):
             reply_markup=keyboard,
         )
 
+# 3. Mula Jalankan Bot
+print("🤖 Memulakan bot KoDIT...")
+
+# Jalankan Flask Server di latar belakang
+threading.Thread(target=run_flask, daemon=True).start()
+
+# Jalankan Telegram Application
 app = Application.builder().token(TOKEN).build()
 app.add_handler(CommandHandler("start", start))
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle))
 
-print("🤖 KoDIT V2.0 sedang berjalan...")
+print("✅ Bot KoDIT V2.0 sedia dan sedang berjalan!")
 app.run_polling()
