@@ -23,7 +23,7 @@ def run_flask():
     web_app.run(host='0.0.0.0', port=port)
 
 # 2. Token Bot
-TOKEN = "8859588533:AAEXCj0kTFE5q1uCKXgjsYTAberxUkt0YIk"
+TOKEN = "8458357251:AAHn5NalFR5IChhJ1yK9En8oeBkAoaqrus4"
 
 keyboard = ReplyKeyboardMarkup(
     [["📖 Cara Guna", "ℹ️ Tentang KoDIT"]],
